@@ -1,0 +1,16 @@
+#!/usr/bin/env node
+
+'use strict';
+
+/**
+ * Module dependencies.
+ */
+
+const app = require('./app');
+
+/**
+ * Boot.
+ */
+
+const port = process.env.PORT || 3000;
+app.listen(port);
