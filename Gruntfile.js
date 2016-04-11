@@ -7,7 +7,7 @@ module.exports = function (grunt) {
       test: {
         options: {
           reporter: 'spec',
-          clearRequireCache: false // Optionally clear the require cache before running tests (defaults to false)
+          clearRequireCache: false
         },
         src: ['test/**.js']
       }
