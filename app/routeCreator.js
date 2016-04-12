@@ -5,7 +5,7 @@
 const bindGen = require('bind-gen');
 const log = require('./logger');
 
-const createRoute = function createRoute(cb) {
+module.exports = (cb) => {
   return function* () {
     try {
       yield bindGen(cb, this);
@@ -16,5 +16,3 @@ const createRoute = function createRoute(cb) {
     }
   };
 };
-
-module.exports = createRoute;

@@ -17,7 +17,7 @@ describe('/vehicle', () => {
   describe('GET /:id', () => {
     it('should return vehicle information', (done) => {
       request
-      .get('/vehicles/' + VALID_IDS[0])
+      .get(`/vehicles/${VALID_IDS[0]}`)
       .expect(200)
       .end(function(err, res) {
         if (err) throw err;
@@ -35,21 +35,21 @@ describe('/vehicle', () => {
   describe('GET /:id/fuel', () => {
     it('should return fuel levels', (done) => {
       request
-      .get('/vehicles/' + VALID_IDS[0] + '/fuel')
+      .get(`/vehicles/${VALID_IDS[0]}/fuel`)
       .expect(200)
       .end(function(err, res) {
         if (err) throw err;
         expect(res.body).to.only.have.keys(['percent']);
         expect(res.body.percent === null || _.isNumber(res.body.percent)).to.be.ok();
         done();
-      })
+      });
     });
   });
 
   describe('GET /:id/doors', () => {
     it('should return fuel levels', (done) => {
       request
-      .get('/vehicles/' + VALID_IDS[0] + '/doors')
+      .get(`/vehicles/${VALID_IDS[0]}/doors`)
       .expect(200)
       .end(function(err, res) {
         if (err) throw err;
@@ -65,7 +65,7 @@ describe('/vehicle', () => {
   describe('GET /:id/battery', () => {
     it('should return battery levels', (done) =>
       request
-      .get('/vehicles/' + VALID_IDS[0] + '/battery')
+      .get(`/vehicles/${VALID_IDS[0]}/battery`)
       .expect(200)
       .end(function(err, res) {
         if (err) throw err;
@@ -77,9 +77,10 @@ describe('/vehicle', () => {
   });
 
   describe('POST /:id/engine', () => {
+    const ENGINE_URI = `/vehicles/${VALID_IDS[0]}/engine`;
     it('should succeed or fail in starting engine', (done) =>
       request
-      .post('/vehicles/' + VALID_IDS[0] + '/engine')
+      .post(ENGINE_URI)
       .send({
         action: 'START'
       })
@@ -94,7 +95,7 @@ describe('/vehicle', () => {
 
     it('should succeed or fail in stopping engine', (done) =>
       request
-      .post('/vehicles/' + VALID_IDS[0] + '/engine')
+      .post(ENGINE_URI)
       .send({
         action: 'STOP'
       })
@@ -109,7 +110,7 @@ describe('/vehicle', () => {
 
     it('should 400 when receiving unknown action', (done) =>
       request
-      .post('/vehicles/' + VALID_IDS[0] + '/engine')
+      .post(ENGINE_URI)
       .send({
         action: 'WRONG ACTION'
       })
