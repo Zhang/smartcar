@@ -2,7 +2,7 @@
 
 ## Dependencies
 
-Relies on Node 5.xx.x
+Node 5.xx.x
 
 ## Setup
 
