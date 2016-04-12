@@ -18,14 +18,11 @@ const toggleEngine = routeCreator(function* () {
   const action = _.get(this, 'request.body.action');
   const res = yield api.post('actionEngineService', api.formatRequestBody(this.params.id, {command: ACTIONS[action]}));
   this.status = api.getStatus(res);
-
-  if (api.is200(res)) {
-    this.body = {
+  this.body = api.handleRequest(res.body, function() {
+    return {
       status: TRANSLATE_STATUS[res.body.actionResult.status]
     };
-  } else {
-    this.body = api.handleRequestErr(res.body);
-  }
+  });
 });
 
 module.exports = toggleEngine;

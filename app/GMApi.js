@@ -22,9 +22,6 @@ const api = {
     const res = yield request(config);
     return res;
   },
-  is200(res) {
-    return this.getStatus(res) === 200;
-  },
   getStatus(res) {
     return parseInt(_.get(res, 'body.status'));
   },
@@ -34,9 +31,13 @@ const api = {
       responseType: 'JSON'
     }, json || {});
   },
-  handleRequestErr(resBody) {
-    //Handle errors differently based on error codes in the future
-    return resBody;
+  handleRequest(resBody, onSuccess) {
+    if (parseInt(resBody.status) === 200) {
+      return onSuccess();
+    } else {
+      //Handle errors differently based on error codes in the future
+      return resBody;
+    }
   },
   getValueByType(val) {
     //Convert returned values into proper types
