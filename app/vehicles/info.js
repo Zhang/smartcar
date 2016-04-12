@@ -3,11 +3,11 @@
 const api = require('../GMApi');
 const routeCreator = require('../routeCreator');
 
-const getFuelLevel = routeCreator(function* () {
+module.exports = routeCreator(function* () {
   const res = yield api.post('getVehicleInfoService', api.formatRequestBody(this.params.id));
-  this.status = api.getStatus(res);
+  this.status = api.getResponseStatus(res);
 
-  this.body = api.handleRequest(res.body, function() {
+  this.body = api.handleRequest(res.body, () => {
     const carData = res.body.data;
     return {
       vin: api.getValueByType(carData.vin),
@@ -17,5 +17,3 @@ const getFuelLevel = routeCreator(function* () {
     };
   });
 });
-
-module.exports = getFuelLevel;

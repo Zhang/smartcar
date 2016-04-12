@@ -14,16 +14,14 @@ const TRANSLATE_STATUS = {
   EXECUTED: 'success'
 };
 
-const toggleEngine = routeCreator(function* () {
+module.exports = routeCreator(function* () {
   const action = _.get(this, 'request.body.action');
   const res = yield api.post('actionEngineService', api.formatRequestBody(this.params.id, {command: ACTIONS[action]}));
-  this.status = api.getStatus(res);
-  this.body = api.handleRequest(res.body, function() {
+  this.status = api.getResponseStatus(res);
+  this.body = api.handleRequest(res.body, () => {
     return {
       status: TRANSLATE_STATUS[res.body.actionResult.status]
     };
   });
 });
-
-module.exports = toggleEngine;
 

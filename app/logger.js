@@ -1,5 +1,7 @@
 'use strict';
 
+//common logger, only supports dev mode
+
 const bunyan = require('bunyan');
 
 const streams = [

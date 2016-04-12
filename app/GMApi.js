@@ -1,6 +1,6 @@
 'use strict';
 
-//Abstraction layer to connect to the GM Api
+//Request layer connecting to the GM Api
 
 const request = require('co-request');
 const _ = require('lodash');
@@ -11,7 +11,7 @@ const BASE_CONFIG = {
   'Content-Type': 'application/json'
 };
 
-const api = {
+module.exports = {
   post: function* post(path, json) {
     const config = _.defaults({
       method: 'POST',
@@ -22,7 +22,7 @@ const api = {
     const res = yield request(config);
     return res;
   },
-  getStatus(res) {
+  getResponseStatus(res) {
     return parseInt(_.get(res, 'body.status'));
   },
   formatRequestBody(id, json) {
@@ -35,12 +35,12 @@ const api = {
     if (parseInt(resBody.status) === 200) {
       return onSuccess();
     } else {
-      //Handle errors differently based on error codes in the future
+      //Handle different errors based on Smartcar errorcode story
       return resBody;
     }
   },
   getValueByType(val) {
-    //Convert returned values into proper types
+    //Converts returned GM values into proper types
     if (!val.type || _.isUndefined(val.value)) throw new Error('Unexpected value format', val);
     if (val.type === 'String') {
       return val.value;
@@ -55,5 +55,3 @@ const api = {
     }
   }
 };
-
-module.exports = api;
