@@ -9,7 +9,7 @@ const getSecurityStatus = routeCreator(function* () {
   this.status = api.getStatus(res);
 
   if (api.is200(res)) {
-    this.body = _.map(_.get(res.body, 'data.doors.values'), function(door) {
+    this.body = _.map(_.get(res.body, 'data.doors.values'), (door) => {
       return {
         location: api.getValueByType(door.location),
         locked: api.getValueByType(door.locked)

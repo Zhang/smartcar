@@ -1,6 +1,6 @@
 'use strict';
 
-//Abstraction layer on top of request, designed for the GM Api
+//Abstraction layer to connect to the GM Api
 
 const request = require('co-request');
 const _ = require('lodash');
@@ -22,23 +22,23 @@ const api = {
     const res = yield request(config);
     return res;
   },
-  is200: function(res) {
+  is200(res) {
     return this.getStatus(res) === 200;
   },
-  getStatus: function(res) {
+  getStatus(res) {
     return parseInt(_.get(res, 'body.status'));
   },
-  formatRequestBody: function(id, json) {
+  formatRequestBody(id, json) {
     return _.defaults({
-      id: id,
+      id,
       responseType: 'JSON'
     }, json || {});
   },
-  handleRequestErr: function(resBody) {
+  handleRequestErr(resBody) {
     //Handle errors differently based on error codes in the future
     return resBody;
   },
-  getValueByType: function(val) {
+  getValueByType(val) {
     //Convert returned values into proper types
     if (!val.type || _.isUndefined(val.value)) throw new Error('Unexpected value format', val);
     if (val.type === 'String') {

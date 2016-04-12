@@ -11,5 +11,5 @@ const streams = [
 
 module.exports = bunyan.createLogger({
   name: 'smartcar',
-  streams: streams
+  streams
 });

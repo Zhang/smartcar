@@ -14,7 +14,5 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('test', function() {
-    grunt.task.run('mochaTest:test');
-  });
+  grunt.registerTask('test', () => { grunt.task.run('mochaTest:test'); });
 };

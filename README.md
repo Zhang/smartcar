@@ -13,6 +13,7 @@ To start the server, execute `npm run`.
 ## Tests
 
 To run tests, execute `NODE_ENV=test; npm test`.
+Note on tests - some tests are flakey due to azure servers response speed on activating - (Fix flakiness by mocking out api calls - future todo #1)
 
 ## Future Todo
 

@@ -4,7 +4,6 @@
   "esnext": true,
   "bitwise": true,
   "camelcase": true,
-  "curly": true,
   "eqeqeq": true,
   "immed": true,
   "indent": 2,
@@ -26,6 +25,7 @@
     "console": false,
     "describe": false,
     "beforeEach": false,
-    "collide": false
+    "collide": false,
+    "it": false
   }
 }

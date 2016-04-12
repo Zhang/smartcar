@@ -7,22 +7,22 @@ const _ = require('lodash');
 
 const INVALID_ID = 123456;
 
-describe('/vehicle', function() {
+describe('/vehicle', () => {
   let request;
-  beforeEach(function() {
+  beforeEach(() => {
     request = agent(http.createServer(app.callback()));
   });
 
-  describe('404 errors', function() {
-    _.each(['/', '/battery', '/fuel', '/doors'], function(endpt) {
-      it('404s properly for /vehicles/:id' + endpt, function(done) {
+  describe('404 errors', () => {
+    _.each(['/', '/battery', '/fuel', '/doors'], (endpt) => {
+      it('404s properly for /vehicles/:id' + endpt, (done) => {
         request
         .get('/vehicles/' + INVALID_ID + endpt)
         .expect(404, done);
       });
     });
 
-    it('404s properly for /vehicles/:id/engine', function(done) {
+    it('404s properly for /vehicles/:id/engine', (done) => {
       request
       .post('/vehicles/' + INVALID_ID + '/engine')
       .send({

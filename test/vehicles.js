@@ -8,14 +8,14 @@ const _ = require('lodash');
 
 const VALID_IDS = [1234, 1235];
 
-describe('/vehicle', function() {
+describe('/vehicle', () => {
   let request;
-  beforeEach(function() {
+  beforeEach(() => {
     request = agent(http.createServer(app.callback()));
   });
 
-  describe('GET /:id', function() {
-    it('should return vehicle information', function(done) {
+  describe('GET /:id', () => {
+    it('should return vehicle information', (done) => {
       request
       .get('/vehicles/' + VALID_IDS[0])
       .expect(200)
@@ -24,9 +24,7 @@ describe('/vehicle', function() {
         const body = res.body;
 
         expect(body).to.only.have.keys(['vin', 'color', 'doorCount', 'driveTrain']);
-        _.each(['vin', 'color', 'driveTrain'], function(key) {
-          expect(body[key]).to.be.a('string');
-        });
+        _.each(['vin', 'color', 'driveTrain'], (key) => { expect(body[key]).to.be.a('string'); });
         expect(body.doorCount).to.be.a('number');
 
         done();
@@ -34,8 +32,8 @@ describe('/vehicle', function() {
     });
   });
 
-  describe('GET /:id/fuel', function() {
-    it('should return fuel levels', function(done) {
+  describe('GET /:id/fuel', () => {
+    it('should return fuel levels', (done) => {
       request
       .get('/vehicles/' + VALID_IDS[0] + '/fuel')
       .expect(200)
@@ -44,12 +42,12 @@ describe('/vehicle', function() {
         expect(res.body).to.only.have.keys(['percent']);
         expect(res.body.percent === null || _.isNumber(res.body.percent)).to.be.ok();
         done();
-      });
+      })
     });
   });
 
-  describe('GET /:id/doors', function() {
-    it('should return fuel levels', function(done) {
+  describe('GET /:id/doors', () => {
+    it('should return fuel levels', (done) => {
       request
       .get('/vehicles/' + VALID_IDS[0] + '/doors')
       .expect(200)
@@ -64,8 +62,8 @@ describe('/vehicle', function() {
     });
   });
 
-  describe('GET /:id/battery', function() {
-    it('should return battery levels', function(done) {
+  describe('GET /:id/battery', () => {
+    it('should return battery levels', (done) =>
       request
       .get('/vehicles/' + VALID_IDS[0] + '/battery')
       .expect(200)
@@ -74,12 +72,12 @@ describe('/vehicle', function() {
         expect(res.body).to.only.have.keys(['percent']);
         expect(res.body.percent === null || _.isNumber(res.body.percent)).to.be.ok();
         done();
-      });
-    });
+      })
+    );
   });
 
-  describe('POST /:id/engine', function() {
-    it('should succeed or fail in starting engine', function(done) {
+  describe('POST /:id/engine', () => {
+    it('should succeed or fail in starting engine', (done) =>
       request
       .post('/vehicles/' + VALID_IDS[0] + '/engine')
       .send({
@@ -91,9 +89,10 @@ describe('/vehicle', function() {
         expect(res.body).to.only.have.keys(['status']);
         expect(['success', 'error']).to.contain(res.body.status);
         done();
-      });
-    });
-    it('should succeed or fail in stopping engine', function(done) {
+      })
+    );
+
+    it('should succeed or fail in stopping engine', (done) =>
       request
       .post('/vehicles/' + VALID_IDS[0] + '/engine')
       .send({
@@ -105,15 +104,16 @@ describe('/vehicle', function() {
         expect(res.body).to.only.have.keys(['status']);
         expect(['success', 'error']).to.contain(res.body.status);
         done();
-      });
-    });
-    it('should 400 when receiving unknown action', function(done) {
+      })
+    );
+
+    it('should 400 when receiving unknown action', (done) =>
       request
       .post('/vehicles/' + VALID_IDS[0] + '/engine')
       .send({
         action: 'WRONG ACTION'
       })
-      .expect(400, done);
-    });
+      .expect(400, done)
+    );
   });
 });

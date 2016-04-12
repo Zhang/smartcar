@@ -11,7 +11,7 @@ const energyService = function* energyService(id) {
     return {
       fuel: api.getValueByType(_.get(res.body.data, 'tankLevel')),
       battery: api.getValueByType(_.get(res.body.data, 'batteryLevel')),
-      status: status
+      status
     };
   } else {
     res.body.status = status;
