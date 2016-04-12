@@ -14,7 +14,8 @@ To start the server, execute `npm run`.
 
 To run tests, execute `npm test`
 
-Note on tests - some tests are flakey due to azure servers response speed on activating - (Fix flakiness by mocking out api calls - future todo #1)
+Note on tests - some tests are flakey due to azure servers response speed
+  -Future todo's include mocking out API calls to GM
 
 ## Future Todo
 
