@@ -13,5 +13,6 @@ module.exports = (grunt) => {
       }
     }
   });
+
   grunt.registerTask('test', () => { grunt.task.run('mochaTest:test'); });
 };
