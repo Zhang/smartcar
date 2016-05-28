@@ -24,9 +24,7 @@
     "ionic": false,
     "console": false,
     "describe": false,
-
     "beforeEach": false,
-
     "collide": false,
     "it": false
   }
